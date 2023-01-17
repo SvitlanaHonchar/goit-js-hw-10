@@ -27,7 +27,6 @@ function onInput(e) {
           'Too many matches found. Please enter a more specific name.'
         );
         countryList.innerHTML = '';
-
         return;
       }
 
@@ -43,7 +42,11 @@ function onInput(e) {
       createCountryCard(countryData);
     })
     .catch(err => {
-      console.log(err);
+      console.dir(err);
+      if (err.message === '404') {
+        countryList.innerHTML = '';
+        Notiflix.Notify.failure('Oops, there is no country with that name');
+      }
     });
 }
 
@@ -51,7 +54,7 @@ function onInput(e) {
 
 inputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
-//   карточка країни
+//   карточки країн
 
 function createCountryCard(countryData) {
   const languages = Object.values(countryData.languages).join(', ');
@@ -69,21 +72,6 @@ function createCountryCard(countryData) {
         <p><span>Population:</span> ${countryData.population}</p>
         <p><span>Languages:</span> ${languages}</p>
       </li>`;
-
-  //   return `<li class="country">
-  //         <div class="country__header">
-  //           <img
-  //             class="country__flag"
-  //             src="${countryData.flags.svg}"
-  //             alt="country flag"
-  //             height="35"
-  //           />
-  //           <p class="country__name">${countryData.name.official}</p>
-  //         </div>
-  //         <p><span>Capital:</span> ${countryData.capital}</p>
-  //         <p><span>Population:</span> ${countryData.population}</p>
-  //         <p><span>Languages:</span> ${languages}</p>
-  //       </li>`;
 }
 
 function createCountryList(countryData) {
