@@ -37,6 +37,11 @@ body {
   font-weight: 700;
 }
 
+.country__name--list {
+  font-size: 24;
+  font-weight: 700;
+}
+
 li {
   list-style-type: none;
 }
